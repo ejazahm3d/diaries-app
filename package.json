@@ -6,6 +6,7 @@
     "@chakra-ui/core": "^0.8.0",
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
+    "@prisma/client": "^2.6.0",
     "@reduxjs/toolkit": "^1.4.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -22,11 +23,11 @@
     "emotion-theming": "^10.0.27",
     "markdown-to-jsx": "^6.11.4",
     "miragejs": "^0.1.40",
+    "next": "latest",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.5.1",
     "react-redux": "^7.2.1",
-    "next": "latest",
     "redux": "^4.0.5",
     "sweetalert2": "^9.17.1",
     "typescript": "~3.7.2",
@@ -51,5 +52,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@prisma/cli": "^2.6.0"
   }
 }
