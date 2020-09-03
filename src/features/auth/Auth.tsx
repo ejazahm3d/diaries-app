@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { User } from "../../interfaces/user.interface";
 import * as Yup from "yup";
@@ -14,8 +14,14 @@ import {
   FormErrorMessage,
   Button,
   Text,
+  Box,
+  Flex,
 } from "@chakra-ui/core";
 import { useYupValidationResolver } from "../../hooks/useYupValidationResolver";
+import { useSelector } from "react-redux";
+import { RootState } from "../../rootReducer";
+import { useRouter } from "next/router";
+import { route } from "next/dist/next-server/server/router";
 
 const schema = Yup.object().shape({
   username: Yup.string()
@@ -30,9 +36,20 @@ const Auth: FC = () => {
   const { handleSubmit, register, errors } = useForm<User>({
     resolver,
   });
+  const router = useRouter();
+
+  const isUserLoggedIn = useSelector<RootState, boolean>(
+    (state) => state.auth.isAuthenticated
+  );
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (isUserLoggedIn) {
+      router.push("/dashboard");
+    }
+  }, [isUserLoggedIn]);
 
   const submitForm = (data: User) => {
     const path = isLogin ? "/auth/login" : "/auth/signup";
@@ -55,8 +72,8 @@ const Auth: FC = () => {
   };
 
   return (
-    <div className="auth">
-      <div className="card">
+    <Flex align="center" justify="center">
+      <Box width={{ sm: "80vw", lg: "50vw" }} paddingTop="10rem">
         <form onSubmit={handleSubmit(submitForm)}>
           <FormControl isInvalid={errors.username as any}>
             <FormLabel htmlFor="username">Username</FormLabel>
@@ -96,8 +113,8 @@ const Auth: FC = () => {
             {isLogin ? "No account? Create one" : "Already have an account?"}
           </Text>
         </form>
-      </div>
-    </div>
+      </Box>
+    </Flex>
   );
 };
 
