@@ -3,9 +3,9 @@ import store from "../src/store";
 import { ThemeProvider, CSSReset } from "@chakra-ui/core";
 import { setupServer } from "../src/services/mirage/server";
 
-if (process.env.NODE_ENV === "development") {
-  setupServer();
-}
+// if (process.env.NODE_ENV === "development") {
+//   setupServer();
+// }
 
 const MyApp = ({ Component, pageProps }) => {
   return (
