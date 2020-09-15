@@ -19,8 +19,9 @@ const Diaries: FC = () => {
   useEffect(() => {
     const fetchDiaries = async () => {
       if (user) {
-        http.get<null, Diary[]>(`diaries/${user.id}`).then((data) => {
+        http.get<null, Diary[]>(`users/${user.id}/diaries`).then((data) => {
           if (data && data.length > 0) {
+            console.log(data);
             const sortedByUpdatedAt = data.sort((a, b) => {
               return dayjs(b.updatedAt).unix() - dayjs(a.updatedAt).unix();
             });
@@ -58,7 +59,7 @@ const Diaries: FC = () => {
       const { diary, user: _user } = await http.post<
         Partial<Diary>,
         { diary: Diary; user: User }
-      >("/diaries/", {
+      >(`users/${user.id}/diaries/`, {
         title: value[0],
         type: value[1],
         userId: user?.id,

@@ -15,6 +15,8 @@ const Editor: FC = () => {
   const { currentlyEditing: entry, canEdit, activeDiaryId } = useSelector(
     (state: RootState) => state.editor
   );
+  const user = useSelector((state: RootState) => state.user);
+
   const [editedEntry, updateEditedEntry] = useState(entry);
   const dispatch = useAppDispatch();
 
@@ -25,12 +27,13 @@ const Editor: FC = () => {
     if (entry == null) {
       http
         .post<Entry, { diary: Diary; entry: Entry }>(
-          `/diaries/entry/${activeDiaryId}`,
+          `users/${user.id}/diaries/${activeDiaryId}/entries`,
           editedEntry
         )
         .then((data) => {
           if (data != null) {
             const { diary, entry: _entry } = data;
+            console.log(data);
             dispatch(setCurrentlyEditing(_entry));
             dispatch(updateDiary(diary));
           }

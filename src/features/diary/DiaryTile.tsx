@@ -10,6 +10,9 @@ import {
 import { showAlert } from "../../util";
 import { useAppDispatch } from "../../store";
 import Link from "next/link";
+import user from "../../services/mirage/routes/user";
+import { useSelector } from "react-redux";
+import { RootState } from "../../rootReducer";
 
 interface Props {
   diary: Diary;
@@ -25,10 +28,10 @@ const DiaryTile: FC<Props> = (props) => {
   const [isEditing, setIsEditing] = useState(false);
   const dispatch = useAppDispatch();
   const totalEntries = props.diary?.entryIds?.length;
-
+  const user = useSelector((state: RootState) => state.user);
   const saveChanges = () => {
     http
-      .put<Diary, Diary>(`/diaries/${diary.id}`, diary)
+      .put<Diary, Diary>(`users/${user.id}/diaries/${diary.id}`, diary)
       .then((diary) => {
         if (diary) {
           dispatch(updateDiary(diary));
@@ -74,6 +77,7 @@ const DiaryTile: FC<Props> = (props) => {
         <button
           style={buttonStyle}
           onClick={() => {
+            console.log("teehe");
             dispatch(setCanEdit(true));
             dispatch(setActiveDiaryId(diary.id as string));
             dispatch(setCurrentlyEditing(null));
