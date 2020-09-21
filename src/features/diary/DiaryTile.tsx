@@ -10,7 +10,6 @@ import {
 import { showAlert } from "../../util";
 import { useAppDispatch } from "../../store";
 import Link from "next/link";
-import user from "../../services/mirage/routes/user";
 import { useSelector } from "react-redux";
 import { RootState } from "../../rootReducer";
 

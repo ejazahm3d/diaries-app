@@ -1,5 +1,12 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Entry } from "../../interfaces/entry.interface";
+import axios from "axios";
+
+// const fetchEntries = createAsyncThunk('entries/fetchEntries', async (payload, thunkAPI) => {
+//   const res = await axios.get<null, { entries: Entry[] }>(
+//     `users/${payload.userId}/diaries/${payload.diaryId}/entries`
+//   )
+// })
 
 const entries = createSlice({
   name: "entries",
@@ -16,6 +23,12 @@ const entries = createSlice({
       }
     },
   },
+  // extraReducers: {
+  //   [fetchEntries.fulfilled]: (state, action: PayloadAction<Entry[]>) => {
+  //     // Add user to the state array
+  //     state = action.payload
+  //   }
+  // }
 });
 
 export const { setEntries, updateEntry } = entries.actions;

@@ -23,17 +23,14 @@ const DiaryEntriesList: FC = () => {
           `users/${user.id}/diaries/${id}/entries`
         )
         .then((data) => {
-          Promise.all([data]).then((newData) => {
-            console.log(newData[0]);
-            const { entries: _entries } = newData[0];
-            if (_entries) {
-              const sortByLastUpdated = _entries?.sort?.((a, b) => {
-                return dayjs(b.updatedAt).unix() - dayjs(a.updatedAt).unix();
-              });
-              console.log(sortByLastUpdated);
-              dispatch(setEntries(sortByLastUpdated));
-            }
-          });
+          const { entries: _entries } = data;
+          if (_entries) {
+            const sortByLastUpdated = _entries?.sort?.((a, b) => {
+              return dayjs(b.updatedAt).unix() - dayjs(a.updatedAt).unix();
+            });
+            console.log(sortByLastUpdated);
+            dispatch(setEntries(sortByLastUpdated));
+          }
         });
     }
   }, [id, dispatch]);
