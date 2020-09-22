@@ -13,7 +13,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const entries = await prisma.entry.findMany({
         where: { diaryId: diaryId },
       });
-      return res.send(entries);
+      return res.status(200).send(entries);
     } catch (error) {
       console.log(error);
       return res.status(500).send(handleErrors("Failed to get entries."));
